@@ -1,0 +1,6 @@
+.idea/
+bin/
+pkg/
+github.com/
+
+src/simple/simple
