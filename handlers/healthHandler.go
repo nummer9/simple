@@ -1,13 +1,13 @@
-package simple
+package handlers
 
 import (
 	"net/http"
 	"fmt"
 )
 
-type SimpleHealthHandler struct{}
+type HealthHandler struct{}
 
-func (rcv SimpleHealthHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
+func (rcv HealthHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
 
 	fmt.Println("received web-request to /health")
 

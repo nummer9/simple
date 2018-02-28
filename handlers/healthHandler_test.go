@@ -1,4 +1,4 @@
-package simple
+package handlers
 
 import (
 	"testing"
@@ -12,7 +12,7 @@ func TestSimpleHandlerOK(t *testing.T) {
 
 	rr := httptest.NewRecorder()
 
-	testee := SimpleHealthHandler{}
+	testee := HealthHandler{}
 
 	testee.ServeHTTP(rr, req)
 
