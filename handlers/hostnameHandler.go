@@ -22,6 +22,4 @@ func (rcv HostnameHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
 		rw.Write([]byte("HOSTNAME is " + hn + "\n"))
 	}
 
-
-
 }

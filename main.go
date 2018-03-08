@@ -13,6 +13,7 @@ func main() {
 
 	fmt.Println("Simple webserver is listening on port: " + strconv.Itoa(port))
 
+	http.Handle("/", handlers.RootHandler{})
 	http.Handle("/health", handlers.HealthHandler{})
 	http.Handle("/hostname", handlers.HostnameHandler{})
 	http.ListenAndServe(":" + strconv.Itoa(port), nil)
