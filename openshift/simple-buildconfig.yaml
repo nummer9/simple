@@ -6,7 +6,7 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: 'simple-bc:latest'
+      name: 'simple:latest'
   source:
     git:
       uri: 'https://github.com/BloodyRainer/simple'
