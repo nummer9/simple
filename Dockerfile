@@ -1,8 +1,15 @@
-FROM ubuntu:17.10
+FROM golang:alpine AS build-env
+WORKDIR /go/src/github.com/BloodyRainer/simple
+COPY . /go/src/github.com/BloodyRainer/simple
+RUN go build -o simple \
+     && mv ./simple /simple
 
-RUN apt-get update && apt-get install -y \
-curl
+FROM alpine
+RUN apk update \ 
+    && apk add ca-certificates \
+    && apk add curl \
+    && rm -rf /var/cache/apk/*
+COPY --from=build-env /simple /
 
-COPY ./simple /usr/local/bin/simple
-
-CMD ["simple"]
+EXPOSE 8080
+ENTRYPOINT /simple
