@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"fmt"
+	log "github.com/sirupsen/logrus"
 	"net/http"
 	"os"
 )
@@ -10,7 +10,9 @@ type HostnameHandler struct{}
 
 func (rcv HostnameHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
 
-	fmt.Println("received web-request to /hostname")
+	log.WithFields(log.Fields{
+		"route" : "/hostname",
+	}).Info("received web-request")
 
 	hn := os.Getenv("HOSTNAME")
 

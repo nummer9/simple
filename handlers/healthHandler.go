@@ -1,15 +1,17 @@
 package handlers
 
 import (
+	log "github.com/sirupsen/logrus"
 	"net/http"
-	"fmt"
 )
 
 type HealthHandler struct{}
 
 func (rcv HealthHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
 
-	fmt.Println("received web-request to /health")
+	log.WithFields(log.Fields{
+		"route" : "/health",
+	}).Info("received web-request")
 
 	rw.WriteHeader(http.StatusOK)
 	rw.Write([]byte("simple health check: success \n"))
