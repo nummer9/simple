@@ -10,9 +10,9 @@ RUN apk update \
 
 # test and build
 RUN go test ./... \
-    && go build -o /simple
+    && GOOS=linux GOARCH=amd64 go build -o /simple
 
-FROM alpine
+FROM alpine:3.8
 RUN apk update \ 
     && apk add ca-certificates \
     && apk add curl \
