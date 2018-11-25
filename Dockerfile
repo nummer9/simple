@@ -1,16 +1,15 @@
-FROM golang:1.11.0-alpine3.8 AS build-env
-WORKDIR /go/src/github.com/BloodyRainer/simple
+FROM golang:1.11.2-alpine3.8 AS build-env
+WORKDIR /src
 
-COPY . /go/src/github.com/BloodyRainer/simple
+COPY . /src
 
 # go module needs alpine-sdk and git
 RUN apk update \
     && apk add alpine-sdk \
     && apk add git
 
-# enable go module
-ENV GO111MODULE=on
-RUN go mod vendor \
+# test and build
+RUN go test ./... \
     && go build -o /simple
 
 FROM alpine
