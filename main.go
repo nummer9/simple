@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/BloodyRainer/simple/handlers"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"os"
+	"simple/handlers"
 	"strconv"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 const port = 8080
@@ -23,8 +24,7 @@ func main() {
 	http.Handle("/", handlers.RootHandler{})
 	http.Handle("/health", handlers.HealthHandler{})
 	http.Handle("/hostname", handlers.HostnameHandler{})
-	http.Handle("/custom-variable", handlers.CustomVarHandler{})
 
-	http.ListenAndServe(":" + strconv.Itoa(port), nil)
+	http.ListenAndServe(":"+strconv.Itoa(port), nil)
 
 }
