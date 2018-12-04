@@ -1,18 +1,44 @@
 package handlers
 
 import (
-	"fmt"
+	log "github.com/sirupsen/logrus"
+	"html/template"
 	"net/http"
+	"sync"
 )
 
-type RootHandler struct{}
+const indexTemplate = "handlers/index.gohtml"
 
-func (rcv RootHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
+var (
+	tpl  *template.Template
+	once sync.Once
+)
 
-	fmt.Println("received web-request to /")
+type RootHandler struct {
+}
 
-	rw.WriteHeader(http.StatusOK)
+func (rcv RootHandler) ServeHTTP(w http.ResponseWriter, rq *http.Request) {
 
-	rw.Write([]byte("This is a simple webservice"))
+	once.Do(func() {
+		tpl = template.Must(template.ParseFiles(indexTemplate))
+
+	})
+
+	log.Info("received web-request to /")
+
+	w.WriteHeader(http.StatusOK)
+
+	data := struct {
+		Title string
+		H1    string
+	}{
+		Title: "simple",
+		H1:    "42",
+	}
+
+	err := tpl.Execute(w, data)
+	if err != nil {
+		log.WithError(err).Error("error writing to response writer in root handler")
+	}
 
 }
