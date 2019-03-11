@@ -18,6 +18,7 @@ RUN apk update \
     && apk add curl \
     && rm -rf /var/cache/apk/*
 
+COPY ./index.gohtml /index.gohtml
 COPY --from=build-env /simple /
 
 EXPOSE 8080

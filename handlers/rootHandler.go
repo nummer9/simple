@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-const indexTemplate = "handlers/index.gohtml"
+const indexTemplate = "index.gohtml"
 
 var (
 	tpl  *template.Template
