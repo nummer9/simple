@@ -24,6 +24,7 @@ func main() {
 	http.Handle("/", handlers.RootHandler{})
 	http.Handle("/health", handlers.HealthHandler{})
 	http.Handle("/hostname", handlers.HostnameHandler{})
+	http.Handle("/random-wait", handlers.RandomWaitHandler{})
 
 	http.ListenAndServe(":"+strconv.Itoa(port), nil)
 
