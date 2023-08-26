@@ -1,8 +1,7 @@
 package handlers
 
 import (
-	"bytes"
-	"io"
+	"fmt"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -32,9 +31,5 @@ func (rcv RandomWaitHandler) ServeHTTP(w http.ResponseWriter, rq *http.Request) 
 
 	log.Info("received web-request to /random-wait, waited " + strconv.Itoa(wait) + " ms")
 
-	buff := new(bytes.Buffer)
-	buff.WriteString("waited " + strconv.Itoa(wait) + " ms")
-	io.Copy(w, buff)
-	w.WriteHeader(http.StatusOK)
-
+	fmt.Fprintf(w, "waited %d ms", wait)
 }

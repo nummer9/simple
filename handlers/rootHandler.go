@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	log "github.com/sirupsen/logrus"
 	"html/template"
 	"net/http"
 	"sync"
+
+	log "github.com/sirupsen/logrus"
 )
 
 const indexTemplate = "index.gohtml"
@@ -25,8 +26,6 @@ func (rcv RootHandler) ServeHTTP(w http.ResponseWriter, rq *http.Request) {
 	})
 
 	log.Info("received web-request to /")
-
-	w.WriteHeader(http.StatusOK)
 
 	data := struct {
 		Title string
