@@ -1,4 +1,4 @@
-FROM golang:1.11.2-alpine3.8 AS build-env
+FROM golang:1.21-alpine3.18 AS build-env
 WORKDIR /src
 
 COPY . /src
@@ -9,10 +9,10 @@ RUN apk update \
     && apk add git
 
 # test and build
-RUN go test ./... \
+RUN go test --cover --shuffle on --race ./... \
     && GOOS=linux GOARCH=amd64 go build -o /simple
 
-FROM alpine:3.8
+FROM alpine:3.18
 RUN apk update \ 
     && apk add ca-certificates \
     && apk add curl \
