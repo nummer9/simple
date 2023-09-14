@@ -4,16 +4,13 @@ import (
 	"net/http"
 	"os"
 
-	log "github.com/sirupsen/logrus"
+	"golang.org/x/exp/slog"
 )
 
 type HostnameHandler struct{}
 
 func (rcv HostnameHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
-
-	log.WithFields(log.Fields{
-		"route": "/hostname",
-	}).Info("received web-request")
+	slog.Info("received web-request", slog.String("route", "/hostname"))
 
 	hn := os.Getenv("HOSTNAME")
 
@@ -22,5 +19,4 @@ func (rcv HostnameHandler) ServeHTTP(rw http.ResponseWriter, rq *http.Request) {
 	} else {
 		rw.Write([]byte("HOSTNAME is " + hn + "\n"))
 	}
-
 }

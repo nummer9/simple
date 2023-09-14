@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"sync"
 
-	log "github.com/sirupsen/logrus"
+	"golang.org/x/exp/slog"
 )
 
 const indexTemplate = "index.gohtml"
@@ -15,17 +15,14 @@ var (
 	once sync.Once
 )
 
-type RootHandler struct {
-}
+type RootHandler struct{}
 
 func (rcv RootHandler) ServeHTTP(w http.ResponseWriter, rq *http.Request) {
-
 	once.Do(func() {
 		tpl = template.Must(template.ParseFiles(indexTemplate))
-
 	})
 
-	log.Info("received web-request to /")
+	slog.Info("received web-request", slog.String("route", "/"))
 
 	data := struct {
 		Title string
@@ -37,7 +34,6 @@ func (rcv RootHandler) ServeHTTP(w http.ResponseWriter, rq *http.Request) {
 
 	err := tpl.Execute(w, data)
 	if err != nil {
-		log.WithError(err).Error("error writing to response writer in root handler")
+		slog.Error("error writing to response writer", slog.String("route", "/"), slog.String("error", err.Error()))
 	}
-
 }
