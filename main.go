@@ -18,6 +18,7 @@ func main() {
 	http.Handle("/health", handlers.HealthHandler{})
 	http.Handle("/hostname", handlers.HostnameHandler{})
 	http.Handle("/random-wait", handlers.RandomWaitHandler{})
+	http.HandleFunc("/websocket", handlers.WebsocketHandler)
 
 	http.ListenAndServe(":"+strconv.Itoa(port), nil)
 }
